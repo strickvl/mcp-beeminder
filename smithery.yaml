@@ -1,0 +1,21 @@
+# Smithery configuration file: https://smithery.ai/docs/config#smitheryyaml
+
+startCommand:
+  type: stdio
+  configSchema:
+    # JSON Schema defining the configuration options for the MCP.
+    type: object
+    required:
+      - beeminderApiKey
+      - beeminderUsername
+    properties:
+      beeminderApiKey:
+        type: string
+        description: The API key for the Beeminder account.
+      beeminderUsername:
+        type: string
+        description: The username for the Beeminder account.
+  commandFunction:
+    # A function that produces the CLI command to start the MCP on stdio.
+    |-
+    (config) => ({ command: 'python', args: ['beeminder_server.py'], env: { BEEMINDER_API_KEY: config.beeminderApiKey, BEEMINDER_USERNAME: config.beeminderUsername } })
