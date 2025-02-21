@@ -51,6 +51,11 @@ You'll need your Beeminder API key and username to run the server. To get your A
 1. Log into Beeminder
 2. Go to [https://www.beeminder.com/api/v1/auth_token.json](https://www.beeminder.com/api/v1/auth_token.json)
 
+You'll also need `uv` installed. See the [uv
+docs](https://docs.astral.sh/uv/getting-started/installation/) for installation
+instructions. You can use something else but you'll need to change the `command`
+in the `claude_desktop_config.json` file.
+
 ### Manual Installation
 
 1. Clone this repository.
@@ -75,8 +80,8 @@ You'll need your Beeminder API key and username to run the server. To get your A
   }
 }
 ```
-4. Install and open the [Claude desktop app](https://claude.ai/download).
-5. Try asking Claude to do a read/write operation of some sort to confirm the
+3. Install and open the [Claude desktop app](https://claude.ai/download).
+4. Try asking Claude to do a read/write operation of some sort to confirm the
    setup (e.g. list your Beeminder goals). If there are
    issues, use the Debugging tools provided in the MCP documentation
    [here](https://modelcontextprotocol.io/docs/tools/debugging).
