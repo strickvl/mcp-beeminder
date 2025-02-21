@@ -44,7 +44,15 @@ The server provides access to core Beeminder functionality including:
 
 ## Running locally with the Claude Desktop app
 
+### Prerequisites
+
+You'll need your Beeminder API key and username to run the server. To get your API key:
+
+1. Log into Beeminder
+2. Go to [https://www.beeminder.com/api/v1/auth_token.json](https://www.beeminder.com/api/v1/auth_token.json)
+
 ### Manual Installation
+
 1. Clone this repository.
 2. Add the following to your `claude_desktop_config.json` file:
 - On MacOS: `~/Library/Application\ Support/Claude/claude_desktop_config.json`
