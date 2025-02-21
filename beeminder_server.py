@@ -40,7 +40,11 @@ def get_goal(
         str: A JSON string representation of the BeeminderGoal instance.
     """
     try:
-        goal = client.get_goal(goal_slug, username=username, datapoints=datapoints)
+        goal = client.get_goal(
+            goal_slug=goal_slug,
+            user=username,
+            datapoints=datapoints,
+        )
         return goal.model_dump_json()
     except Exception as e:
         logger.error(f"Error in get_goal: {str(e)}", exc_info=True)
