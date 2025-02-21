@@ -1,10 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
-name = "beeminder"
+name = "mcp-beeminder"
 version = "0.1.0"
-description = "Add your description here"
+description = "Beeminder MCP Server"
 readme = "README.md"
 requires-python = ">=3.10"
-dependencies = [
-    "beeminder-client>=0.1.5",
-    "mcp[cli]>=1.3.0",
+dependencies = ["beeminder-client==0.1.5", "mcp[cli]>=1.3.0"]
+license = { text = "MIT" }
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
+
+[project.urls]
+Homepage = "https://github.com/strickvl/mcp-beeminder"
+Issues = "https://github.com/strickvl/mcp-beeminder/issues"
+
+[[project.authors]]
+name = "Alex Strick van Linschoten"
+email = "alex.ext@zenml.io"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/mcp_beeminder"]

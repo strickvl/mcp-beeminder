@@ -125,7 +125,11 @@ WHEN ADVISING USERS:
    - Pledge increases automatic
    - Consider emergency scenarios
 
-Remember: Beeminder combines meaningful commitment with maximal flexibility, designed to help users achieve their goals while maintaining accountability.
+Remember: Beeminder combines meaningful commitment with maximal flexibility,
+designed to help users achieve their goals while maintaining accountability.
+
+Responses to queries should include tables where appropriate to better present
+information to the user.
 """
 
 try:
@@ -144,7 +148,7 @@ except Exception as e:
     raise
 
 
-@mcp.tool()
+@mcp.tool(description="Returns information about a specific goal.")
 def get_goal(
     goal_slug: str,
     datapoints: bool = False,
@@ -170,7 +174,9 @@ def get_goal(
         return f"Error retrieving settings: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="Returns all goals for the current user that is best presented in a table."
+)
 def list_goals() -> str:
     """List all goals for the current user.
 
@@ -185,7 +191,9 @@ def list_goals() -> str:
         return f"Error retrieving goals: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="Returns all archived goals for the current user that is best presented in a table."
+)
 def get_archived_goals() -> str:
     """Get all archived goals for the current user.
 
@@ -200,7 +208,17 @@ def get_archived_goals() -> str:
         return f"Error retrieving archived goals: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Creates a new Beeminder goal. The data required to create the goal, which may include:
+    - slug: The URL slug for the goal
+    - title: The display title for the goal 
+    - goal_type: The type of goal (do_more, do_less, whittle_down, etc.)
+    - goalval: The target value for the goal
+    - rate: The rate at which to progress towards the goal
+    - runits: The units for the goal (e.g., 'hours', 'pages', 'kg')
+    And any other valid goal parameters
+    Note that exactly two out of three of goaldate, goalval, and rate are required."""
+)
 def create_goal(
     goal_data: Dict[str, Any],
 ) -> str:
@@ -339,7 +357,9 @@ def create_goal(
         return f"Error creating goal: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="Returns all datapoints for a specific goal that is best presented in a table."
+)
 def get_datapoints(
     goal_slug: str,
     sort: Optional[str] = None,
@@ -388,7 +408,15 @@ def get_datapoints(
         return f"Error retrieving datapoints: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Creates a new datapoint for a goal. The data required to create the datapoint, which may include:
+    - goal_slug: The slug identifier for the goal
+    - value: The value for the datapoint
+    - timestamp: Unix timestamp for the datapoint
+    - daystamp: Date stamp (YYYYMMDD format)
+    - comment: Comment for the datapoint
+    - requestid: Unique identifier for this datapoint"""
+)
 def create_datapoint(
     goal_slug: str,
     value: float,
@@ -426,7 +454,15 @@ def create_datapoint(
         return f"Error creating datapoint: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Creates multiple datapoints for a goal. The data required to create the datapoints, which may include:
+    - goal_slug: The slug identifier for the goal
+    - datapoints: List of datapoint objects to create, each containing:
+        - value: The value for the datapoint
+        - timestamp: Unix timestamp
+        - daystamp: Date stamp (YYYYMMDD)
+        - comment: Comment - requestid: Unique identifier"""
+)
 def create_multiple_datapoints(
     goal_slug: str,
     datapoints: List[Dict[str, Any]],
@@ -457,7 +493,11 @@ def create_multiple_datapoints(
         return f"Error creating multiple datapoints: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Deletes a datapoint. The data required to delete the datapoint, which may include:
+    - goal_slug: The slug identifier for the goal
+    - datapoint_id: The ID of the datapoint to delete"""
+)
 def delete_datapoint(
     goal_slug: str,
     datapoint_id: str,
@@ -483,7 +523,7 @@ def delete_datapoint(
         return f"Error deleting datapoint: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(description="Returns information about the current user.")
 def get_user() -> str:
     """Get information about the current user.
 
@@ -498,7 +538,15 @@ def get_user() -> str:
         return f"Error retrieving user: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Updates an existing Beeminder goal. The data required to update the goal, which may include:
+    - goal_slug: The slug identifier for the goal
+    - update_data: The data to update the goal with, which may include:
+        - title: New title for the goal
+        - rate: New rate for the goal
+        - goalval: New target value
+        - goal_type: New goal type - runits: New units And any other valid goal parameters"""
+)
 def update_goal(
     goal_slug: str,
     update_data: Dict[str, Any],
@@ -636,7 +684,10 @@ def update_goal(
         return f"Error updating goal: {str(e)}"
 
 
-@mcp.tool()
+@mcp.tool(
+    description="""Deletes a Beeminder goal. The data required to delete the goal, which may include:
+    - goal_slug: The slug identifier for the goal"""
+)
 def delete_goal(goal_slug: str) -> str:
     """Delete a Beeminder goal.
 
